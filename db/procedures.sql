@@ -1,24 +1,26 @@
-USE company;
+USE cv;
 
 DELIMITER $$
-USE `company`$$
+USE `cv`$$
 
-CREATE PROCEDURE `employeeAddOrEdit` (
+CREATE PROCEDURE `usersAddOrEdit` (
   IN _id INT,
-  IN _name VARCHAR(45),
-  IN _salary INT
+  IN _name VARCHAR(50),
+  IN _email VARCHAR(50),
+  IN _type VARCHAR(50)
 )
 BEGIN 
   IF _id = 0 THEN
-    INSERT INTO employee (name, salary)
-    VALUES (_name, _salary);
+    INSERT INTO users (name, email, type)
+    VALUES (_name, _email, type);
 
     SET _id = LAST_INSERT_ID();
   ELSE
-    UPDATE employee
+    UPDATE users
     SET
     name = _name,
-    salary = _salary
+    email = _email,
+    type = _type
     WHERE id = _id;
   END IF;
 

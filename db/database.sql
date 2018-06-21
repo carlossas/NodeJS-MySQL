@@ -1,19 +1,18 @@
-CREATE DATABASE IF NOT EXISTS company;
+CREATE DATABASE IF NOT EXISTS cv;
 
-USE company;
+USE cv;
 
-CREATE TABLE employee (
+CREATE TABLE users (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  name VARCHAR(45) DEFAULT NULL,
-  salary INT(11) DEFAULT NULL, 
+  name VARCHAR(50) DEFAULT NULL,
+  email VARCHAR(50) DEFAULT NULL,
+  type VARCHAR(50) DEFAULT NULL, 
   PRIMARY KEY(id)
 );
 
-DESCRIBE employee;
+DESCRIBE users;
 
-INSERT INTO employee values 
-  (1, 'Ryan Ray', 20000),
-  (2, 'Joe McMillan', 40000),
-  (3, 'John Carter', 50000);
+INSERT INTO users values 
+  (1, 'carlos', 'carlossas_97@hotmail.com', 'admin');
 
-SELECT * FROM employee;
+SELECT * FROM users;
