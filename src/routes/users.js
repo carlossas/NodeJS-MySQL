@@ -40,14 +40,14 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An user
 router.post('/', (req, res) => {
-    const { id, name, salary } = req.body;
+    const { id, name, email, type } = req.body;
     console.log(id, name, email, type);
     const query = `
     SET @id = ?;
     SET @name = ?;
     SET @email = ?;
     SET @type = ?;
-    CALL usersAddOrEdit(@id, @name, @email, @type);
+    CALL  usersAddOrEdit(@id, @name, @email, @type);
   `;
     mysqlConnection.query(query, [id, name, email, type], (err, rows, fields) => {
         if (!err) {

@@ -12,7 +12,7 @@ CREATE PROCEDURE `usersAddOrEdit` (
 BEGIN 
   IF _id = 0 THEN
     INSERT INTO users (name, email, type)
-    VALUES (_name, _email, type);
+    VALUES (_name, _email, _type);
 
     SET _id = LAST_INSERT_ID();
   ELSE
