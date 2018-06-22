@@ -7,7 +7,7 @@ const mysqlConnection = require('../database.js');
 router.get('/', (req, res) => {
     mysqlConnection.query('SELECT * FROM users', (err, rows, fields) => {
         if (!err) {
-            res.json(rows);
+            res.status(200).json(rows)
         } else {
             console.log(err);
         }
@@ -40,16 +40,17 @@ router.delete('/:id', (req, res) => {
 
 // INSERT An user
 router.post('/', (req, res) => {
-    const { id, name, email, type } = req.body;
-    console.log(id, name, email, type);
+    const { id, name, email, password, type } = req.body;
+    console.log(id, name, email, password, type);
     const query = `
     SET @id = ?;
     SET @name = ?;
     SET @email = ?;
+    SET @password = ?;
     SET @type = ?;
-    CALL  usersAddOrEdit(@id, @name, @email, @type);
+    CALL  usersAddOrEdit(@id, @name, @email, @passoword, @type);
   `;
-    mysqlConnection.query(query, [id, name, email, type], (err, rows, fields) => {
+    mysqlConnection.query(query, [id, name, email, password, type], (err, rows, fields) => {
         if (!err) {
             res.json({ status: 'user Saved' });
         } else {
@@ -60,16 +61,17 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    const { name, email, type } = req.body;
+    const { name, email, password, type } = req.body;
     const { id } = req.params;
     const query = `
     SET @id = ?;
     SET @name = ?;
-    SET @email = ?;
+    SET @email = ?;}
+    SET @password = ?;
     SET @type = ?;
-    CALL usersAddOrEdit(@id, @name, @email, @type);
+    CALL usersAddOrEdit(@id, @name, @email, @password @type);
   `;
-    mysqlConnection.query(query, [id, name, email, type], (err, rows, fields) => {
+    mysqlConnection.query(query, [id, name, email, password, type], (err, rows, fields) => {
         if (!err) {
             res.json({ status: 'user Updated' });
         } else {
